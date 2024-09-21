@@ -5,6 +5,12 @@
     mysql_rootpass: ExpenseApp@1
     mysql_hostlogin: mysql.dev.divyavutakanti.com
   tasks: 
+  - name: install pyhon libraries 
+    ansible.builtin.pip:  
+      name: 
+      - PyMySQL 
+    executable: pip3.9
+
   - name: install mysql-server 
     ansible.builtin.package: 
       name: mysql-server 
