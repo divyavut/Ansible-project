@@ -17,7 +17,7 @@
       name: 
       - botocore
       - boto3
-      executable:3.9
+      executable: pip3.9
   - name: create ec2 instance 
     amazon.aws.ec2_instance:
       name: "{{ item }}"
