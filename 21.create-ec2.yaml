@@ -14,9 +14,9 @@
   tasks:
   - name: install python librabries
     ansible.builtin.pip:
-      - name: 
-        botocore
-        boto3
+      name: 
+      - botocore
+      - boto3
       executable:3.9
   - name: create ec2 instance 
     amazon.aws.ec2_instance:
