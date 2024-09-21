@@ -1,0 +1,25 @@
+- name: configure mysql-server 
+  hosts: mysql 
+  become: yes
+  vars: 
+    mysql_rootpass: ExpenseApp@1
+    mysql_hostlogin: mysql.dev.divyavutakanti.com
+  tasks: 
+  - name: install mysql-server 
+    ansible.builtin.package: 
+      name: mysql-server 
+      state: present 
+
+  - name: start mysql-server 
+    ansible.builtin.service: 
+      name: mysqld 
+      state: started 
+      enabled: yes 
+  - name: connect to mysql server if logins are present 
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: "{{ mysql_rootpass }}"
+      login_host: "{{ mysql_hostlogin }}"
+    ignore_errors: true 
+    register: mysql_info
+
