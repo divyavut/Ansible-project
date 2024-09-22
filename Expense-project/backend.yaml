@@ -1,5 +1,8 @@
 - name: configure backend server 
   hosts: backend
+  vars: 
+    mysql_rootpass: ExpenseApp@1
+    mysql_hostlogin: mysql.dev.divyavutakanti.com
   become: yes 
   tasks: 
   - name: disable  default nodejs version
@@ -27,4 +30,21 @@
     ansible.builtin.unarchive: 
       src: /tmp/backend.zip 
       dest: /app
-      remote_src: yes
+      remote_src: yes 
+  - name: install dependency 
+    ansible.builtin.command: npm install 
+    args:
+      chdir: /app 
+  - name: copy backend servcie 
+    ansible.builtin.copy:
+      src: backend.service 
+      dest: /etc/systemd/system/backend.service 
+  - name: import mysql data 
+    community.mysql.mysql_db:
+      login_user: root
+      login_password: "{{ mysql_rootpass }}"
+      login_host: "{{ mysql_hostlogin }}"
+      state: dump 
+      name: all
+      target: /app/schema/backend.sql 
+  
