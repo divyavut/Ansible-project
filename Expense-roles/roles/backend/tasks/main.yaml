@@ -10,11 +10,15 @@
 - name: enable nodejs 20
   ansible.builtin.command: dnf module enable nodejs:20 -y
 - name: import task from common role 
+  tags:
+  - deployment
   ansible.builtin.import_role: 
     name: common 
     tasks_from: app-pre-req
 
 - name: install nodejs 
+  tags: 
+  - deployment
   ansible.builtin.package: 
     name: "{{ item }}" 
     state: present
@@ -40,6 +44,8 @@
     name: all
     target: /app/schema/backend.sql 
 - name: deamon reload backend 
+  tags:
+  - deployment
   ansible.builtin.systemd_service:
     daemon_reload: true 
     state: restarted

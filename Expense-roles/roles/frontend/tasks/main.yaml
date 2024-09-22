@@ -7,6 +7,8 @@
     name: nginx 
     state: started 
 - name: import common tasks from another role
+  tags:
+  - deployment
   ansible.builtin.import_role:
     name: common
     tasks_from: app-pre-req
