@@ -54,7 +54,7 @@
       login_user: root
       login_password: "{{ mysql_rootpass }}"
       login_host: "{{ mysql_hostlogin }}"
-      state: dump 
+      state: import 
       name: all
       target: /app/schema/backend.sql 
   
