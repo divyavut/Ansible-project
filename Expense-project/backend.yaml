@@ -3,8 +3,16 @@
   vars: 
     mysql_rootpass: ExpenseApp@1
     mysql_hostlogin: mysql.dev.divyavutakanti.com
+    packages: 
+    - nodejs
+    - mysql 
   become: yes 
   tasks: 
+  - name: install python libraries 
+    ansible.builtin.pip: 
+      name: 
+      - PyMySQL
+      executable: pip3.9
   - name: disable  default nodejs version
     ansible.builtin.command: dnf module disable nodejs -y 
     
@@ -13,8 +21,9 @@
 
   - name: install nodejs 
     ansible.builtin.package: 
-      name: nodejs 
+      name: "{{ item }}" 
       state: present
+    loop: "{{ packages }}""
   - name: create expense user 
     ansible.builtin.user: 
       name: expense 
