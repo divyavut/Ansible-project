@@ -23,7 +23,7 @@
     ansible.builtin.package: 
       name: "{{ item }}" 
       state: present
-    loop: "{{ packages }}""
+    loop: "{{ packages }}"
   - name: create expense user 
     ansible.builtin.user: 
       name: expense 
