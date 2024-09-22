@@ -9,6 +9,10 @@
   
 - name: enable nodejs 20
   ansible.builtin.command: dnf module enable nodejs:20 -y
+- name: import task from common role 
+  ansible.builtin.import_role: 
+    name: common 
+    tasks_from: app-pre-req
 
 - name: install nodejs 
   ansible.builtin.package: 
@@ -18,19 +22,7 @@
 - name: create expense user 
   ansible.builtin.user: 
     name: expense 
-- name: create directory 
-  ansible.builtin.file: 
-    path: /app 
-    state: directory 
-- name: download the backend code
-  ansible.builtin.get_url: 
-    url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip 
-    dest: /tmp/backend.zip 
-- name: extract the backend code 
-  ansible.builtin.unarchive: 
-    src: /tmp/backend.zip 
-    dest: /app
-    remote_src: yes 
+
 - name: install dependency 
   ansible.builtin.command: npm install 
   args:

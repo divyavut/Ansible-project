@@ -3,3 +3,5 @@ mysql_hostlogin: mysql.dev.divyavutakanti.com
 packages: 
 - nodejs
 - mysql 
+app_location: /app 
+component: backend
