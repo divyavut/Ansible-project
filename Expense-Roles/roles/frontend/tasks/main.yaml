@@ -15,10 +15,11 @@
     src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
     dest: /usr/share/nginx/html 
     remote_src: yes  
-- name: copy the expense.conf  # copy will only works for files without variables
+- name: copy the expense.conf 
   ansible.builtin.template:
     src: expense.conf.j2
     dest: /etc/nginx/default.d/expense.conf 
+
 - name: restart nginx 
   ansible.builtin.service:
     name: nginx 
